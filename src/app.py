@@ -75,7 +75,7 @@ def get_response(user_input):
     return response['answer']
 
 # app config
-st.set_page_config(page_title="Any Page Chatbot", page_icon="🤖")
+st.set_page_config(page_title="  Any Page Chatbot", page_icon="🤖")
 st.title("Any Page Chatbot")
 
 
@@ -86,7 +86,7 @@ with st.sidebar:
 
 if website_url is None or website_url == "":
     st.info("Please enter a web page URL")
-    st.text("by clicking > in the corner ↖ ")
+    st.text("  * by clicking > in the corner ↖ ")
 
 else:
     # session state
