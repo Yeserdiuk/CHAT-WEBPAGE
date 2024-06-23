@@ -5,6 +5,7 @@
 # ~/.streamlit/
 # pip install streamlit langchain langchain-core langchain-community langchain-openai openai beautifulsoup4 python-dotenv chromadb streamlit googleapis-common-protos protobuf streamlit-javascript pyyaml ua-parser user-agents
 # pip freeze | grep streamlit >> requirements.txt
+
 import streamlit as st
 from streamlit_javascript import st_javascript
 from user_agents import parse
@@ -66,30 +67,6 @@ def get_response(user_input):
     return response['answer']
 
 def main():
-    # JavaScript для анімації сайдбару
-    sidebar_animation = """
-    <script>
-    function animateSidebar() {
-        const sidebar = window.parent.document.querySelector('.css-1544g2n.e1fqkh3o4');
-        if (sidebar) {
-            setTimeout(() => {
-                sidebar.style.transition = 'transform 0.3s ease-in-out';
-                sidebar.style.transform = 'translateX(20px)';
-                setTimeout(() => {
-                    sidebar.style.transform = 'translateX(0px)';
-                    setTimeout(() => {
-                        sidebar.style.transform = 'translateX(20px)';
-                        setTimeout(() => {
-                            sidebar.style.transform = 'translateX(0px)';
-                        }, 300);
-                    }, 300);
-                }, 300);
-            }, 2000);
-        }
-    }
-    animateSidebar();
-    </script>
-    """
 
     # app config
     st.set_page_config(page_title="Any Page Chatbot", page_icon="🤖")
@@ -118,7 +95,7 @@ def main():
         # session state
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = [
-                AIMessage(content="Hello, I am a bot. How can I help you?"),
+                AIMessage(content="Hello, I am a bot Yevhenii. How can I help you?"),
             ]
         if "vector_store" not in st.session_state:
             st.session_state.vector_store = get_vectorstore_from_url(website_url)
