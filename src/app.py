@@ -85,7 +85,8 @@ with st.sidebar:
     website_url = st.text_input("Web page URL")
 
 if website_url is None or website_url == "":
-    st.info("Please enter a web page URL (To do this, click the > button in the top left corner)")
+    st.info("Click the > button in the top left corner")
+    st.subheader("Please enter a web page URL")
 
 else:
     # session state
