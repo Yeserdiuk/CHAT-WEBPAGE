@@ -3,7 +3,7 @@
 # export USER_AGENT="AnyPageChatBot/0.0.1 (Mac; Python 3.10)"
 # streamlit run src/app.py
 # ~/.streamlit/
-# pip install streamlit langchain langchain-core langchain-community langchain-openai openai beautifulsoup4 python-dotenv chromadb
+# pip install streamlit langchain langchain-core langchain-community langchain-openai openai beautifulsoup4 python-dotenv chromadb streamlit googleapis-common-protos protobuf
 # pip freeze | grep streamlit >> requirements.txt
 
 import streamlit as st
