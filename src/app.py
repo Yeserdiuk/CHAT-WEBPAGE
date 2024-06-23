@@ -23,17 +23,11 @@ import os
 load_dotenv()
 
 def get_vectorstore_from_url(url):
-    # get the text in document form
     loader = WebBaseLoader(url)
     document = loader.load()
-
-    # split the document into chunks
     text_splitter = RecursiveCharacterTextSplitter()
     document_chunks = text_splitter.split_documents(document)
-
-    # create a vectorstore from the chunks
     vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings())
-
     return vector_store
 
 def get_context_retriever_chain(vector_store):
@@ -67,20 +61,22 @@ def get_response(user_input):
     return response['answer']
 
 def main():
-
-    # app config
     st.set_page_config(page_title="Any Page Chatbot", page_icon="🤖")
     st.title("Any Page Chatbot")
 
     # Отримання user agent та визначення типу пристрою
     if 'is_session_pc' not in st.session_state:
-        ua_string = st_javascript("navigator.userAgent")
-        user_agent = parse(ua_string)
-        st.session_state.is_session_pc = user_agent.is_pc
-
-    # Анімація сайдбару для мобільних пристроїв
-    if not st.session_state.is_session_pc:
-        st.components.v1.html(sidebar_animation, height=0)
+        try:
+            ua_string = st_javascript("navigator.userAgent")
+            if ua_string:
+                user_agent = parse(ua_string)
+                st.session_state.is_session_pc = user_agent.is_pc
+            else:
+                st.session_state.is_session_pc = True
+                st.warning("Не вдалося визначити тип пристрою. Вважаємо, що це ПК.")
+        except Exception as e:
+            st.error(f"Помилка при визначенні типу пристрою: {e}")
+            st.session_state.is_session_pc = True
 
     # sidebar
     with st.sidebar:
@@ -92,22 +88,19 @@ def main():
         if not st.session_state.is_session_pc:
             st.text("by clicking on > in the corner ↖")
     else:
-        # session state
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = [
-                AIMessage(content="Hello, I am a bot Yevhenii. How can I help you?"),
+                AIMessage(content="Hello, I am a bot. How can I help you?"),
             ]
         if "vector_store" not in st.session_state:
             st.session_state.vector_store = get_vectorstore_from_url(website_url)
 
-        # user input
         user_query = st.chat_input("Type your message here...")
         if user_query is not None and user_query != "":
             response = get_response(user_query)
             st.session_state.chat_history.append(HumanMessage(content=user_query))
             st.session_state.chat_history.append(AIMessage(content=response))
 
-        # conversation
         for message in st.session_state.chat_history:
             if isinstance(message, AIMessage):
                 with st.chat_message("AI"):
