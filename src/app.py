@@ -85,7 +85,7 @@ with st.sidebar:
 
 if website_url is None or website_url == "":
     st.info("Please enter a website URL")
-    st.text("   click on > in the corner ↖ ")
+    st.caption("_click on > in the corner_ ↖ ")
 
 else:
     # session state
