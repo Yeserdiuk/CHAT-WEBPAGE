@@ -81,7 +81,7 @@ st.title("Any page bot")
 # sidebar
 with st.sidebar:
     st.header("Сopy & paste")
-    website_url = st.text_input("Webpage URL")
+    website_url = st.text_input("Your webpage URL 👇")
 
 if website_url is None or website_url == "":
     st.info("Please enter a webpage URL")
