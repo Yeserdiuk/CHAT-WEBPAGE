@@ -4,6 +4,7 @@
 # streamlit run src/app.py
 # ~/.streamlit/
 # pip install streamlit langchain langchain-core langchain-community langchain-openai openai beautifulsoup4 python-dotenv chromadb
+# pip freeze | grep streamlit >> requirements.txt
 
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
