@@ -7,6 +7,7 @@
 # pip freeze | grep streamlit >> requirements.txt
 
 import streamlit as st
+import time
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -74,9 +75,38 @@ def get_response(user_input):
 
     return response['answer']
 
+# JavaScript для анімації сайдбару
+sidebar_animation = """
+<script>
+function animateSidebar() {
+    const sidebar = window.parent.document.querySelector('.css-1544g2n.e1fqkh3o4');
+    if (sidebar) {
+        setTimeout(() => {
+            sidebar.style.transition = 'transform 0.3s ease-in-out';
+            sidebar.style.transform = 'translateX(20px)';
+            setTimeout(() => {
+                sidebar.style.transform = 'translateX(0px)';
+                setTimeout(() => {
+                    sidebar.style.transform = 'translateX(20px)';
+                    setTimeout(() => {
+                        sidebar.style.transform = 'translateX(0px)';
+                    }, 300);
+                }, 300);
+            }, 300);
+        }, 2000);
+    }
+}
+animateSidebar();
+</script>
+"""
+
 # app config
 st.set_page_config(page_title="Any Page Chatbot", page_icon="🤖")
 st.title("Any Page Chatbot")
+
+# Перевірка на мобільний пристрій і вставка JavaScript
+if st.is_mobile():
+    st.components.v1.html(sidebar_animation, height=0)
 
 # sidebar
 with st.sidebar:
@@ -85,7 +115,8 @@ with st.sidebar:
 
 if website_url is None or website_url == "":
     st.info("Please enter a web page URL")
-    st.text("by clicking on > in the corner ↖")
+    if st.is_mobile():
+        st.text("by clicking on > in the corner ↖")
 
 else:
     # session state
