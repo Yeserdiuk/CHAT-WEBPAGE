@@ -75,17 +75,17 @@ def get_response(user_input):
     return response['answer']
 
 # app config
-st.set_page_config(page_title="Chat with websites", page_icon="🤖")
-st.title("Chat with websites")
+st.set_page_config(page_title="Any page bot", page_icon="🤖")
+st.title("Any page bot")
 
 # sidebar
 with st.sidebar:
-    st.header("Settings")
-    website_url = st.text_input("Website URL")
+    st.header("Сopy & paste")
+    website_url = st.text_input("Webpage URL")
 
 if website_url is None or website_url == "":
-    st.info("Please enter a website URL")
-    st.caption("click on  >  in the corner  ↖")
+    st.info("Please enter a webpage URL")
+    st.caption("...  click on  >  in the corner  ↖")
 
 else:
     # session state
