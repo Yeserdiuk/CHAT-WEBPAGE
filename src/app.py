@@ -78,31 +78,26 @@ def get_response(user_input):
 st.set_page_config(page_title="Any page bot", page_icon="🤖")
 st.title("Any page bot")
 
-# sidebar
-with st.sidebar:
-    st.header("Сopy & paste")
-    website_url = st.text_input("Your webpage URL 👇")
+website_url = st.text_input("Enter web address you want to chat with", label_visibility="collapsed")
 
 if website_url is None or website_url == "":
-    st.info("Please enter a webpage URL")
-    st.caption("...  click on  >  in the corner  ↖")
+    st.info("Enter web address you want to chat with 👆")
 
 else:
-    # session state
-    if "chat_history" not in st.session_state:
+    # Check if the entered URL is different from the previous one
+    if "prev_url" not in st.session_state or st.session_state.prev_url != website_url:
+        st.session_state.prev_url = website_url
         st.session_state.chat_history = [
-            AIMessage(content="Hello, I am a bot Yevhenii. How can I help you?"),
+            AIMessage(content="Hello, I am a AI chatbot. What do you want to know about this webpage?"),
         ]
-    if "vector_store" not in st.session_state:
         st.session_state.vector_store = get_vectorstore_from_url(website_url)
 
     # user input
-    user_query = st.chat_input("Type your message here...")
+    user_query = st.chat_input("Explain me this content briefly")
     if user_query is not None and user_query != "":
         response = get_response(user_query)
         st.session_state.chat_history.append(HumanMessage(content=user_query))
         st.session_state.chat_history.append(AIMessage(content=response))
-
 
 
     # conversation
