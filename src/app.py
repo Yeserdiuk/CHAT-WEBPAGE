@@ -78,7 +78,7 @@ def get_response(user_input):
 st.set_page_config(page_title="Any page bot", page_icon="🤖")
 st.title("Any page bot")
 
-website_url = st.text_input("Enter web address you want to chat with", label_visibility="collapsed")
+website_url = st.text_input("Enter web address you want to chat with", placeholder="https://", label_visibility="collapsed")
 
 if website_url is None or website_url == "":
     st.info("Enter web address you want to chat with 👆")
