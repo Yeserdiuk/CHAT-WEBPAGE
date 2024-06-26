@@ -76,19 +76,19 @@ def get_response(user_input):
 
 # app config
 st.set_page_config(page_title="Any page bot", page_icon="🤖")
-st.title("Any page bot")
+st.title("Any page bot 🤖 ")
 
 website_url = st.text_input("Enter web address you want to chat with", placeholder="https://", label_visibility="collapsed")
 
 if website_url is None or website_url == "":
-    st.info("Enter web address you want to chat with 👆")
+    st.info("Enter web address you want to chat with")
 
 else:
     # Check if the entered URL is different from the previous one
     if "prev_url" not in st.session_state or st.session_state.prev_url != website_url:
         st.session_state.prev_url = website_url
         st.session_state.chat_history = [
-            AIMessage(content="Hello, I am a AI chatbot. What do you want to know about this webpage?"),
+            AIMessage(content="Hello, I am Linko. What do you want to know about this webpage?"),
         ]
         st.session_state.vector_store = get_vectorstore_from_url(website_url)
 
