@@ -24,14 +24,12 @@ def get_vectorstore_from_url(url):
         document = loader.load()
 
         if not document:
-            st.error(f"Unable to load content from {url}")
             return None
 
         text_splitter = RecursiveCharacterTextSplitter()
         document_chunks = text_splitter.split_documents(document)
 
         if not document_chunks:
-            st.error(f"No content chunks extracted from {url}")
             return None
 
         vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings())
