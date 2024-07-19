@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from datetime import datetime
 
 load_dotenv()
 
@@ -39,7 +40,7 @@ def get_vectorstore_from_url(url):
         return None
 
 def get_context_retriever_chain(vector_store):
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+    llm = ChatOpenAI(model="gpt-4o-mini"
 
     retriever = vector_store.as_retriever()
 
@@ -54,7 +55,7 @@ def get_context_retriever_chain(vector_store):
     return retriever_chain
 
 def get_conversational_rag_chain(retriever_chain):
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+    llm = ChatOpenAI(model="gpt-4o-mini")
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", "Answer the user's questions based on the below context:\n\n{context}"),
