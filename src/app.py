@@ -57,8 +57,9 @@ def get_context_retriever_chain(vector_store):
 def get_conversational_rag_chain(retriever_chain):
     llm = ChatOpenAI(model="gpt-4o-mini")
 
+    current_date = datetime.now().strftime("%Y-%m-%d")
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "Answer the user's questions based on the below context:\n\n{context}"),
+        ("system", f"Today's date is {current_date}. Answer the user's questions based on the below context:\n\n{{context}}"),
         MessagesPlaceholder(variable_name="chat_history"),
         ("user", "{input}"),
     ])
@@ -66,7 +67,6 @@ def get_conversational_rag_chain(retriever_chain):
     stuff_documents_chain = create_stuff_documents_chain(llm, prompt)
 
     return create_retrieval_chain(retriever_chain, stuff_documents_chain)
-
 def get_response(user_input):
     retriever_chain = get_context_retriever_chain(st.session_state.vector_store)
     conversation_rag_chain = get_conversational_rag_chain(retriever_chain)
