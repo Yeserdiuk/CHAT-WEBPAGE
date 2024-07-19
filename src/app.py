@@ -40,7 +40,7 @@ def get_vectorstore_from_url(url):
         return None
 
 def get_context_retriever_chain(vector_store):
-    llm = ChatOpenAI(model="gpt-4o-mini"
+    llm = ChatOpenAI(model="gpt-4o-mini")
 
     retriever = vector_store.as_retriever()
 
