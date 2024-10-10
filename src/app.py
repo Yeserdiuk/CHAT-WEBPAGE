@@ -5,6 +5,7 @@
 # ~/.streamlit/
 # pip install streamlit langchain langchain-core langchain-community langchain-openai openai beautifulsoup4 python-dotenv chromadb streamlit googleapis-common-protos protobuf streamlit-javascript pyyaml ua-parser user-agents
 # pip freeze | grep streamlit >> requirements.txt
+
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_community.document_loaders import WebBaseLoader
